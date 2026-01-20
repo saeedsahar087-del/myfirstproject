@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Modern Task Tracker</title>
+	<style>
+		:root {
+			--sidebar-bg: #232946;
+			--sidebar-accent: #eebbc3;
+			--main-bg: linear-gradient(135deg, #e0eaff 0%, #f9f9f9 100%);
+			--glass-bg: rgba(255,255,255,0.55);
+			--glass-blur: blur(18px);
+			--card-radius: 1.5rem;
+			--primary: #232946;
+			--accent: #eebbc3;
+			--done: #b8c1ec;
+			--strike: #eebbc3;
+		}
+		body {
+			min-height: 100vh;
+			margin: 0;
+			background: var(--main-bg);
+			display: flex;
+			font-family: 'Segoe UI', Arial, sans-serif;
+		}
+		.sidebar {
+			width: 80px;
+			background: var(--sidebar-bg);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 2rem 0 2rem 0;
+			gap: 2rem;
+			min-height: 100vh;
+			box-shadow: 2px 0 16px rgba(35,41,70,0.07);
+		}
+		.sidebar-logo {
+			width: 48px;
+			height: 48px;
+			background: var(--sidebar-accent);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 2rem;
+			font-weight: 700;
+			color: var(--sidebar-bg);
+			margin-bottom: 2rem;
+			box-shadow: 0 2px 8px rgba(238,187,195,0.13);
+		}
+		.sidebar-link {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: none;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.3rem;
+			cursor: pointer;
+			border: none;
+			transition: background 0.2s;
+		}
+		.sidebar-link:active, .sidebar-link:focus {
+			background: var(--sidebar-accent);
+			color: var(--sidebar-bg);
+		}
+		.main {
+			flex: 1;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+		}
+		.glass-card {
+			background: var(--glass-bg);
+			border-radius: var(--card-radius);
+			box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
+			backdrop-filter: var(--glass-blur);
+			-webkit-backdrop-filter: var(--glass-blur);
+			padding: 2.2rem 2rem 2rem 2rem;
+			min-width: 320px;
+			max-width: 420px;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
+			align-items: center;
+		}
+		.card-header {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+		.card-title {
+			font-size: 1.7rem;
+			font-weight: 700;
+			color: var(--primary);
+			letter-spacing: 1px;
+		}
+		.completion-ring {
+			width: 54px;
+			height: 54px;
+			position: relative;
+		}
+		.completion-svg {
+			width: 54px;
+			height: 54px;
+			transform: rotate(-90deg);
+		}
+		.completion-bg {
+			stroke: #e0eaff;
+			stroke-width: 7;
+		}
+		.completion-progress {
+			stroke: var(--accent);
+			stroke-width: 7;
+			stroke-linecap: round;
+			transition: stroke-dashoffset 0.5s;
+		}
+		.completion-text {
+			position: absolute;
+			top: 0; left: 0;
+			width: 54px;
+			height: 54px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 1.1rem;
+			font-weight: 700;
+			color: var(--primary);
+		}
+		.add-task-row {
+			width: 100%;
+			display: flex;
+			gap: 0.7rem;
+		}
+		.add-task-input {
+			flex: 1;
+			padding: 0.7rem 1rem;
+			border-radius: 0.7rem;
+			border: 1.5px solid #e0e0e0;
+			font-size: 1.1rem;
+			font-weight: 500;
+			color: var(--primary);
+			outline: none;
+			background: #f7f9fc;
+			transition: border 0.2s;
+		}
+		.add-task-input:focus {
+			border: 1.5px solid var(--accent);
+		}
+		.add-task-btn {
+			background: var(--accent);
+			color: var(--primary);
+			border: none;
+			border-radius: 0.7rem;
+			font-size: 1.1rem;
+			font-weight: 700;
+			padding: 0.7rem 1.2rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		.add-task-btn:active {
+			background: #f3c7d1;
+		}
+		.task-list {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+			margin-top: 0.5rem;
+		}
+		.task-item {
+			background: rgba(255,255,255,0.7);
+			border-radius: 0.7rem;
+			padding: 0.8rem 1rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1rem;
+			font-size: 1.1rem;
+			font-weight: 500;
+			color: var(--primary);
+			box-shadow: 0 2px 8px rgba(35,41,70,0.04);
+			position: relative;
+			overflow: hidden;
+		}
+		.task-label {
+			flex: 1;
+			cursor: pointer;
+			transition: color 0.2s;
+			position: relative;
+		}
+		.task-label.done {
+			color: var(--done);
+		}
+		.task-label.done::after {
+			content: '';
+			position: absolute;
+			left: 0; right: 0; top: 50%;
+			height: 2.5px;
+			background: var(--strike);
+			transform: scaleX(0);
+			animation: strike 0.4s forwards;
+		}
+		@keyframes strike {
+			to { transform: scaleX(1); }
+		}
+		.task-actions {
+			display: flex;
+			gap: 0.5rem;
+		}
+		.task-done-btn, .task-delete-btn {
+			background: none;
+			border: none;
+			color: var(--accent);
+			font-size: 1.2rem;
+			cursor: pointer;
+			border-radius: 50%;
+			width: 32px;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background 0.2s;
+		}
+		.task-done-btn:active, .task-delete-btn:active {
+			background: #f3c7d1;
+		}
+		@media (max-width: 600px) {
+			.glass-card {
+				padding: 1rem 0.2rem 1rem 0.2rem;
+				min-width: 0;
+				max-width: 99vw;
+			}
+			.sidebar {
+				width: 54px;
+				padding: 1rem 0 1rem 0;
+			}
+			.sidebar-logo {
+				width: 36px; height: 36px; font-size: 1.2rem;
+			}
+		}
+	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+	<div class="sidebar">
+		<div class="sidebar-logo">T</div>
+		<button class="sidebar-link" title="Tasks"><i class="fas fa-list-check"></i></button>
+		<button class="sidebar-link" title="Settings"><i class="fas fa-gear"></i></button>
+	</div>
+	<div class="main">
+		<div class="glass-card">
+			<div class="card-header">
+				<div class="card-title">Task Tracker</div>
+				<div class="completion-ring">
+					<svg class="completion-svg" viewBox="0 0 54 54">
+						<circle class="completion-bg" cx="27" cy="27" r="22" fill="none" />
+						<circle class="completion-progress" id="completionProgress" cx="27" cy="27" r="22" fill="none" />
+					</svg>
+					<div class="completion-text" id="completionText">0%</div>
+				</div>
+			</div>
+			<form class="add-task-row" id="addTaskForm" autocomplete="off">
+				<input class="add-task-input" id="taskInput" type="text" placeholder="Add a new task..." required maxlength="60">
+				<button class="add-task-btn" type="submit">Add</button>
+			</form>
+			<div class="task-list" id="taskList"></div>
+		</div>
+	</div>
+	<script>
+		// LocalStorage helpers
+		function getTasks() {
+			return JSON.parse(localStorage.getItem('tasks') || '[]');
+		}
+		function saveTasks(tasks) {
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+		}
+
+		// DOM elements
+		const taskList = document.getElementById('taskList');
+		const addTaskForm = document.getElementById('addTaskForm');
+		const taskInput = document.getElementById('taskInput');
+		const completionProgress = document.getElementById('completionProgress');
+		const completionText = document.getElementById('completionText');
+
+		// Render tasks
+		function renderTasks() {
+			const tasks = getTasks();
+			taskList.innerHTML = '';
+			let doneCount = 0;
+			tasks.forEach((task, idx) => {
+				const div = document.createElement('div');
+				div.className = 'task-item';
+				// Task label
+				const label = document.createElement('span');
+				label.className = 'task-label' + (task.done ? ' done' : '');
+				label.textContent = task.text;
+				if (task.done) doneCount++;
+				// Strike-through animation
+				if (task.done) {
+					setTimeout(() => label.classList.add('done'), 10);
+				}
+				// Actions
+				const actions = document.createElement('div');
+				actions.className = 'task-actions';
+				// Done button
+				const doneBtn = document.createElement('button');
+				doneBtn.className = 'task-done-btn';
+				doneBtn.innerHTML = '<i class="fas fa-check"></i>';
+				doneBtn.title = 'Mark as Done';
+				doneBtn.onclick = () => toggleDone(idx);
+				// Delete button
+				const delBtn = document.createElement('button');
+				delBtn.className = 'task-delete-btn';
+				delBtn.innerHTML = '<i class="fas fa-trash"></i>';
+				delBtn.title = 'Delete Task';
+				delBtn.onclick = () => deleteTask(idx);
+				actions.appendChild(doneBtn);
+				actions.appendChild(delBtn);
+				div.appendChild(label);
+				div.appendChild(actions);
+				taskList.appendChild(div);
+			});
+			updateCompletionRing(tasks.length, doneCount);
+		}
+
+		// Add task
+		addTaskForm.onsubmit = function(e) {
+			e.preventDefault();
+			const text = taskInput.value.trim();
+			if (!text) return;
+			const tasks = getTasks();
+			tasks.push({ text, done: false });
+			saveTasks(tasks);
+			taskInput.value = '';
+			renderTasks();
+		};
+
+		// Toggle done
+		function toggleDone(idx) {
+			const tasks = getTasks();
+			tasks[idx].done = !tasks[idx].done;
+			saveTasks(tasks);
+			renderTasks();
+		}
+
+		// Delete task
+		function deleteTask(idx) {
+			const tasks = getTasks();
+			tasks.splice(idx, 1);
+			saveTasks(tasks);
+			renderTasks();
+		}
+
+		// Completion ring
+		function updateCompletionRing(total, done) {
+			const percent = total === 0 ? 0 : Math.round((done / total) * 100);
+			completionText.textContent = percent + '%';
+			const circumference = 2 * Math.PI * 22;
+			completionProgress.setAttribute('stroke-dasharray', circumference);
+			completionProgress.setAttribute('stroke-dashoffset', circumference * (1 - percent / 100));
+		}
+
+		// Initial render
+		renderTasks();
+	</script>
+</body>
+</html>

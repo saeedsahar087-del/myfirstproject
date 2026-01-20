@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Step-by-Step Quiz App</title>
+	<style>
+		:root {
+			--bg: #f6f8fb;
+			--card: #fff;
+			--shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.13);
+			--accent: #1976d2;
+			--accent-light: #e3f0fd;
+			--radius: 1.3rem;
+			--progress-bg: #e3eafc;
+			--progress-bar: #1976d2;
+		}
+		body {
+			min-height: 100vh;
+			margin: 0;
+			background: var(--bg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Segoe UI', Arial, sans-serif;
+		}
+		.quiz-container {
+			background: var(--card);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			padding: 2.2rem 1.5rem 2rem 1.5rem;
+			width: 100%;
+			max-width: 370px;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			align-items: center;
+		}
+		.progress-bar-bg {
+			width: 100%;
+			height: 12px;
+			background: var(--progress-bg);
+			border-radius: 8px;
+			overflow: hidden;
+			margin-bottom: 1.2rem;
+		}
+		.progress-bar {
+			height: 100%;
+			background: var(--progress-bar);
+			border-radius: 8px;
+			width: 0%;
+			transition: width 0.4s cubic-bezier(.4,2,.6,1);
+		}
+		.question-card {
+			width: 100%;
+			min-height: 180px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.2rem;
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(20px);
+			transition: opacity 0.5s, transform 0.5s;
+			position: absolute;
+			left: 0; right: 0;
+		}
+		.question-card.active {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+			position: static;
+		}
+		.question {
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: #222;
+			text-align: center;
+		}
+		.options {
+			display: flex;
+			flex-direction: column;
+			gap: 0.7rem;
+			width: 100%;
+		}
+		.option-btn {
+			background: var(--accent-light);
+			color: var(--accent);
+			border: none;
+			border-radius: 0.7rem;
+			font-size: 1.1rem;
+			font-weight: 500;
+			padding: 0.8rem 0;
+			cursor: pointer;
+			transition: background 0.2s, color 0.2s;
+			box-shadow: 0 2px 8px rgba(25, 118, 210, 0.04);
+		}
+		.option-btn.selected {
+			background: var(--accent);
+			color: #fff;
+		}
+		.option-btn:active {
+			background: #b3d3f7;
+		}
+		.final-card {
+			width: 100%;
+			min-height: 180px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.2rem;
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(20px);
+			transition: opacity 0.5s, transform 0.5s;
+		}
+		.final-card.active {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+		}
+		.final-score {
+			font-size: 2.1rem;
+			font-weight: 700;
+			color: var(--accent);
+		}
+		.restart-btn {
+			background: var(--accent);
+			color: #fff;
+			border: none;
+			border-radius: 0.7rem;
+			font-size: 1.1rem;
+			font-weight: 600;
+			padding: 0.8rem 2.2rem;
+			cursor: pointer;
+			transition: background 0.2s;
+			margin-top: 0.7rem;
+		}
+		.restart-btn:active {
+			background: #1256a3;
+		}
+		@media (max-width: 500px) {
+			.quiz-container {
+				padding: 1rem 0.2rem 1rem 0.2rem;
+				max-width: 99vw;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="quiz-container">
+		<div class="progress-bar-bg">
+			<div class="progress-bar" id="progressBar"></div>
+		</div>
+		<div id="questionsArea" style="position:relative;min-height:200px;width:100%"></div>
+		<div class="final-card" id="finalCard">
+			<div class="final-score" id="finalScore"></div>
+			<button class="restart-btn" onclick="restartQuiz()">Restart</button>
+		</div>
+	</div>
+	<script>
+		// Quiz data
+		const questions = [
+			{
+				q: "What is the capital of France?",
+				options: ["Berlin", "Madrid", "Paris", "Rome"],
+				answer: 2
+			},
+			{
+				q: "Which planet is known as the Red Planet?",
+				options: ["Earth", "Mars", "Jupiter", "Venus"],
+				answer: 1
+			},
+			{
+				q: "Who wrote 'To Kill a Mockingbird'?",
+				options: ["Harper Lee", "Mark Twain", "J.K. Rowling", "Jane Austen"],
+				answer: 0
+			},
+			{
+				q: "What is the largest ocean on Earth?",
+				options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+				answer: 3
+			},
+			{
+				q: "Which element has the chemical symbol 'O'?",
+				options: ["Gold", "Oxygen", "Osmium", "Iron"],
+				answer: 1
+			}
+		];
+		let current = 0;
+		let score = 0;
+		let selected = null;
+
+		const questionsArea = document.getElementById('questionsArea');
+		const progressBar = document.getElementById('progressBar');
+		const finalCard = document.getElementById('finalCard');
+		const finalScore = document.getElementById('finalScore');
+
+		function renderQuestion() {
+			questionsArea.innerHTML = '';
+			if (current < questions.length) {
+				const q = questions[current];
+				const card = document.createElement('div');
+				card.className = 'question-card active';
+				// Question
+				const qDiv = document.createElement('div');
+				qDiv.className = 'question';
+				qDiv.textContent = q.q;
+				card.appendChild(qDiv);
+				// Options
+				const opts = document.createElement('div');
+				opts.className = 'options';
+				q.options.forEach((opt, oidx) => {
+					const btn = document.createElement('button');
+					btn.className = 'option-btn';
+					btn.textContent = opt;
+					btn.onclick = () => selectOption(oidx, btn);
+					opts.appendChild(btn);
+				});
+				card.appendChild(opts);
+				questionsArea.appendChild(card);
+			}
+		}
+
+		function selectOption(oidx, btn) {
+			if (selected !== null) return;
+			selected = oidx;
+			// Highlight selected
+			const btns = document.querySelectorAll('.option-btn');
+			btns.forEach((b, i) => {
+				b.classList.toggle('selected', i === oidx);
+				b.disabled = true;
+			});
+			// Score
+			if (oidx === questions[current].answer) score++;
+			setTimeout(() => {
+				nextQuestion();
+			}, 600);
+		}
+
+		function nextQuestion() {
+			selected = null;
+			current++;
+			updateProgress();
+			if (current < questions.length) {
+				renderQuestion();
+			} else {
+				showFinal();
+			}
+		}
+
+		function updateProgress() {
+			const percent = Math.round((current / questions.length) * 100);
+			progressBar.style.width = percent + '%';
+		}
+
+		function showFinal() {
+			questionsArea.innerHTML = '';
+			finalCard.classList.add('active');
+			finalScore.textContent = `Your Score: ${score} / ${questions.length}`;
+			progressBar.style.width = '100%';
+		}
+
+		function restartQuiz() {
+			current = 0;
+			score = 0;
+			selected = null;
+			finalCard.classList.remove('active');
+			renderQuestion();
+			updateProgress();
+		}
+
+		// Initial render
+		renderQuestion();
+		updateProgress();
+	</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pomodoro Study Timer</title>
+	<style>
+		:root {
+			--work-bg: #ffe5e5;
+			--break-bg: #e5ffe5;
+			--work-color: #ff6b6b;
+			--break-color: #4ecb7a;
+			--timer-size: 270px;
+		}
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: var(--work-bg);
+			transition: background 0.5s;
+			font-family: 'Segoe UI', Arial, sans-serif;
+		}
+		.pomodoro-container {
+			background: #fff;
+			border-radius: 1.5rem;
+			box-shadow: 0 2px 24px rgba(255, 107, 107, 0.08);
+			padding: 2rem 1.5rem 1.5rem 1.5rem;
+			width: 100%;
+			max-width: 350px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.2rem;
+		}
+		.mode-toggle {
+			display: flex;
+			gap: 1rem;
+			margin-bottom: 1rem;
+		}
+		.mode-btn {
+			background: none;
+			border: none;
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: #888;
+			cursor: pointer;
+			padding: 0.5rem 1.2rem;
+			border-radius: 0.7rem;
+			transition: background 0.2s, color 0.2s;
+		}
+		.mode-btn.active {
+			background: var(--work-color);
+			color: #fff;
+		}
+		.mode-btn.break.active {
+			background: var(--break-color);
+		}
+		.timer-circle {
+			position: relative;
+			width: var(--timer-size);
+			height: var(--timer-size);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.timer-svg {
+			position: absolute;
+			top: 0; left: 0;
+			width: 100%; height: 100%;
+			transform: rotate(-90deg);
+		}
+		.timer-bg {
+			stroke: #eee;
+			stroke-width: 14;
+		}
+		.timer-progress {
+			stroke: var(--work-color);
+			stroke-width: 14;
+			stroke-linecap: round;
+			transition: stroke 0.5s;
+		}
+		.timer-progress.break {
+			stroke: var(--break-color);
+		}
+		.timer-label {
+			position: relative;
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: var(--work-color);
+			transition: color 0.5s;
+			z-index: 2;
+			user-select: none;
+		}
+		.timer-label.break {
+			color: var(--break-color);
+		}
+		.controls {
+			display: flex;
+			gap: 1rem;
+			margin-top: 1.2rem;
+		}
+		.control-btn {
+			background: var(--work-color);
+			color: #fff;
+			border: none;
+			border-radius: 0.7rem;
+			font-size: 1.1rem;
+			font-weight: 600;
+			padding: 0.7rem 1.5rem;
+			cursor: pointer;
+			transition: background 0.2s;
+		}
+		.control-btn:active {
+			background: #d94c4c;
+		}
+		.control-btn.break {
+			background: var(--break-color);
+		}
+		.control-btn.break:active {
+			background: #399e5c;
+		}
+		@media (max-width: 500px) {
+			.pomodoro-container {
+				padding: 1rem 0.2rem 1rem 0.2rem;
+				max-width: 99vw;
+			}
+			.timer-circle {
+				width: 180px;
+				height: 180px;
+			}
+			.timer-label {
+				font-size: 1.5rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="pomodoro-container">
+		<div class="mode-toggle">
+			<button class="mode-btn active" id="workBtn" onclick="setMode('work')">Work</button>
+			<button class="mode-btn break" id="breakBtn" onclick="setMode('break')">Break</button>
+		</div>
+		<div class="timer-circle">
+			<svg class="timer-svg" viewBox="0 0 100 100">
+				<circle class="timer-bg" cx="50" cy="50" r="44" fill="none" />
+				<circle class="timer-progress" id="timerProgress" cx="50" cy="50" r="44" fill="none" />
+			</svg>
+			<div class="timer-label" id="timerLabel">25:00</div>
+		</div>
+		<div class="controls">
+			<button class="control-btn" id="startBtn" onclick="startTimer()">Start</button>
+			<button class="control-btn" id="pauseBtn" onclick="pauseTimer()">Pause</button>
+			<button class="control-btn" id="resetBtn" onclick="resetTimer()">Reset</button>
+		</div>
+	</div>
+	<script>
+		// Timer settings
+		const WORK_TIME = 25 * 60;
+		const BREAK_TIME = 5 * 60;
+		let mode = 'work';
+		let timeLeft = WORK_TIME;
+		let timerInterval = null;
+		let isRunning = false;
+
+		const timerLabel = document.getElementById('timerLabel');
+		const timerProgress = document.getElementById('timerProgress');
+		const workBtn = document.getElementById('workBtn');
+		const breakBtn = document.getElementById('breakBtn');
+		const startBtn = document.getElementById('startBtn');
+		const pauseBtn = document.getElementById('pauseBtn');
+		const resetBtn = document.getElementById('resetBtn');
+
+		function setMode(newMode) {
+			mode = newMode;
+			document.body.style.background = mode === 'work' ? 'var(--work-bg)' : 'var(--break-bg)';
+			timerLabel.classList.toggle('break', mode === 'break');
+			timerProgress.classList.toggle('break', mode === 'break');
+			workBtn.classList.toggle('active', mode === 'work');
+			breakBtn.classList.toggle('active', mode === 'break');
+			startBtn.classList.toggle('break', mode === 'break');
+			pauseBtn.classList.toggle('break', mode === 'break');
+			resetBtn.classList.toggle('break', mode === 'break');
+			resetTimer();
+		}
+
+		function formatTime(sec) {
+			const m = Math.floor(sec / 60);
+			const s = sec % 60;
+			return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+		}
+
+		function updateTimerDisplay() {
+			timerLabel.textContent = formatTime(timeLeft);
+			// Animate circular progress
+			const total = mode === 'work' ? WORK_TIME : BREAK_TIME;
+			const percent = (total - timeLeft) / total;
+			const circumference = 2 * Math.PI * 44;
+			timerProgress.setAttribute('stroke-dasharray', circumference);
+			timerProgress.setAttribute('stroke-dashoffset', circumference * (1 - percent));
+		}
+
+		function startTimer() {
+			if (isRunning) return;
+			isRunning = true;
+			timerInterval = setInterval(() => {
+				if (timeLeft > 0) {
+					timeLeft--;
+					updateTimerDisplay();
+				} else {
+					clearInterval(timerInterval);
+					isRunning = false;
+				}
+			}, 1000);
+		}
+
+		function pauseTimer() {
+			if (!isRunning) return;
+			clearInterval(timerInterval);
+			isRunning = false;
+		}
+
+		function resetTimer() {
+			clearInterval(timerInterval);
+			isRunning = false;
+			timeLeft = mode === 'work' ? WORK_TIME : BREAK_TIME;
+			updateTimerDisplay();
+		}
+
+		// Initial setup
+		setMode('work');
+		updateTimerDisplay();
+	</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+header {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 80px;
+    padding-right: 20px;
+    align-items: center;
+}
+
+.menu-list {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+.banner-heading {
+    text-align: center;
+}
+
+.first-div {
+    background-color: #c93e19;
+}
+
+.second-div {
+    background-color: #bc3a17;
+}
+
+.third-div {
+    background-color: #b23716;
+}
+
+.card2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.division {
+    display: flex;
+
+}
+
+.img {
+    text-align: center;
+}
+
+.image-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+/* Individual image wrapper */
+.image-wrapper {
+    margin: 10px;
+    text-align: center;
+}
+
+/* circular image styling */
+.image-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+
+}
+
+.image-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* caption styling */
+.image-caption {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Product grid container */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+/* Individual product card */
+.product-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-sale {
+    background: #e74c3c;
+}
+
+.badge-best {
+    background: #f39c12;
+}
+
+.badge-new {
+    background: #2ecc71;
+}
+
+/* Product info section */
+.product-info {
+    padding: 15px;
+}
+
+.product-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-category {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Action buttons */
+.product-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    height: 250px;
+    padding: 10px;
+    background-image: url(atm.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.action-btn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.action-btn:hover {
+    background: #ccc;
+}
+
+.action-btn i {
+    font-size: 14px;
+}
+.product{
+    display: flex;
+    flex-wrap: wrap;
+}

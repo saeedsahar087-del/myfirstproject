@@ -1,0 +1,134 @@
+:root {
+    --primary: #00ffaa;
+    --bg: #050505;
+    --card-bg: rgba(20, 20, 20, 0.8);
+    --text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* Progress Bar */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), #0066ff);
+    z-index: 2000;
+    width: 0%;
+}
+
+/* Glass Navbar */
+.glass-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 10%;
+    background: linear-gradient(to bottom, rgba(5, 5, 5, 1), transparent);
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: var(--primary);
+}
+
+.menu-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.menu-links a:hover {
+    opacity: 1;
+    color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 10%;
+    background: radial-gradient(circle at 80% 20%, #112211 0%, transparent 40%);
+}
+
+.glitch-text {
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 1;
+}
+
+#typewriter {
+    color: var(--primary);
+    border-right: 3px solid var(--primary);
+}
+
+/* Content Sections */
+.content-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 4rem;
+    border-radius: 2px;
+    /* Sharp modern edges */
+    border-left: 5px solid var(--primary);
+    max-width: 600px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+    transition: transform 0.1s ease;
+}
+
+.skill-tags span {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid var(--primary);
+    margin: 5px;
+    font-size: 0.7rem;
+    color: var(--primary);
+}
+
+.neon-button {
+    margin-top: 30px;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 15px 40px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.neon-button:hover {
+    background: var(--primary);
+    color: black;
+    box-shadow: 0 0 20px var(--primary);
+}

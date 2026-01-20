@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bean & Brew | Artisan Coffee</title>
+    <style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { line-height: 1.6; color: #333; background-color: #fdfaf7; scroll-behavior: smooth; }
+        
+        /* Navigation */
+        nav {
+            background: #2c1810;
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav .logo { font-size: 1.5rem; font-weight: bold; color: #d4a373; }
+        nav ul { display: flex; list-style: none; }
+        nav ul li { margin-left: 20px; }
+        nav ul li a { color: white; text-decoration: none; transition: 0.3s; }
+        nav ul li a:hover { color: #d4a373; }
+
+        /* Sections */
+        section { padding: 80px 10% 40px; min-height: 60vh; }
+        h2 { text-align: center; margin-bottom: 2rem; color: #2c1810; font-size: 2.5rem; }
+
+        /* 1. Home Section */
+        #home {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        #home h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+        .btn { background: #d4a373; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+
+        /* 2. About Section */
+        #about { background: white; text-align: center; }
+        .about-content { max-width: 800px; margin: 0 auto; }
+
+        /* 3. Menu Section */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .menu-item { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        .price { color: #d4a373; font-weight: bold; font-size: 1.2rem; }
+
+        /* 4. Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .gallery-grid img:hover { transform: scale(1.03); }
+
+        /* 5. Contact Section */
+        #contact form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea { margin-bottom: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; }
+            nav ul { margin-top: 15px; }
+            nav ul li { margin: 0 10px; }
+            #home h1 { font-size: 2.2rem; }
+            section { padding: 60px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">BEAN & BREW</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h1>Perfect Coffee, Every Time.</h1>
+        <p style="margin-bottom: 2rem;">Experience the finest beans roasted

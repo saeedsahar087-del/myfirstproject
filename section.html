@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <style>
+        .main-section{
+            border: 2px solid ;
+            justify-content: space-around ;
+            display: flex;
+            padding: 50px;
+            background-color: aqua;
+        }
+        .box{
+            border: 2px solid rgb(0, 255, 255);
+            margin: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+        .btn{
+            padding: 2px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+        @media  screen and (max-width : 600px)
+        {
+            .main-section{
+                flex-direction: column;
+                background-color: brown;
+
+            }
+        }
+    </style>
+</head>
+<body>
+   <section class="main-section">
+    <div class="box">
+        <h1>left section</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. At perferendis fugiat veritatis, aut molestias voluptatem nulla illo aliquid,              nisi, quis ipsum a eaque est iste? Omnis inventore dolores voluptatem porro?</p>
+        <button class="btn">read more</button>
+    </div>
+    <div class="box">
+        <h1>right section</h1>
+        <ul>
+            <li>home </li>
+            <li>skill</li>
+            <li>career</li>
+        </ul>
+        <button class="btn">info</button>
+    </div>
+   </section>
+   <section>
+    <div>
+        
+    </div>
+   </section>
+</body>
+</html>

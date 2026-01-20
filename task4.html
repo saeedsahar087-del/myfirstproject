@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Expense Splitter - Premium Fintech Style</title>
+	<style>
+		:root {
+			--card-bg: #fff;
+			--main-bg: linear-gradient(135deg, #1976d2 0%, #4b006e 100%);
+			--accent: #1976d2;
+			--accent2: #4b006e;
+			--text: #222;
+			--bold: 700;
+			--radius: 1.3rem;
+			--shadow: 0 4px 32px rgba(25, 118, 210, 0.13);
+		}
+		body {
+			min-height: 100vh;
+			margin: 0;
+			background: var(--main-bg);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: 'Segoe UI', Arial, sans-serif;
+		}
+		.card {
+			background: var(--card-bg);
+			border-radius: var(--radius);
+			box-shadow: var(--shadow);
+			padding: 2.2rem 1.5rem 2rem 1.5rem;
+			width: 100%;
+			max-width: 370px;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			align-items: center;
+		}
+		.card-title {
+			font-size: 2rem;
+			font-weight: var(--bold);
+			color: var(--accent2);
+			letter-spacing: 1px;
+			margin-bottom: 0.5rem;
+		}
+		.input-group {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 1.1rem;
+		}
+		.input-row {
+			display: flex;
+			align-items: center;
+			gap: 0.7rem;
+		}
+		.input-label {
+			font-size: 1.1rem;
+			font-weight: var(--bold);
+			color: var(--accent);
+			min-width: 120px;
+		}
+		.input-field {
+			flex: 1;
+			padding: 0.7rem 1rem;
+			border-radius: 0.7rem;
+			border: 1.5px solid #e0e0e0;
+			font-size: 1.2rem;
+			font-weight: var(--bold);
+			color: var(--text);
+			outline: none;
+			background: #f7f9fc;
+			transition: border 0.2s;
+		}
+		.input-field:focus {
+			border: 1.5px solid var(--accent);
+		}
+		.slider-group {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+		.slider-label {
+			font-size: 1.1rem;
+			font-weight: var(--bold);
+			color: var(--accent);
+			margin-bottom: 0.2rem;
+		}
+		.slider-row {
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+		}
+		.slider {
+			flex: 1;
+			accent-color: var(--accent);
+			height: 4px;
+		}
+		.slider-value {
+			font-size: 1.1rem;
+			font-weight: var(--bold);
+			color: var(--accent2);
+			min-width: 40px;
+			text-align: right;
+		}
+		.result-group {
+			width: 100%;
+			background: linear-gradient(90deg, #1976d2 0%, #4b006e 100%);
+			border-radius: 1rem;
+			padding: 1.2rem 1rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			box-shadow: 0 2px 16px rgba(25, 118, 210, 0.09);
+		}
+		.result-label {
+			font-size: 1.1rem;
+			font-weight: var(--bold);
+			color: #fff;
+			margin-bottom: 0.3rem;
+		}
+		.result-value {
+			font-size: 2.1rem;
+			font-weight: var(--bold);
+			color: #fff;
+			letter-spacing: 1px;
+		}
+		@media (max-width: 500px) {
+			.card {
+				padding: 1rem 0.2rem 1rem 0.2rem;
+				max-width: 99vw;
+			}
+			.card-title {
+				font-size: 1.3rem;
+			}
+			.result-value {
+				font-size: 1.3rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="card">
+		<div class="card-title">Expense Splitter</div>
+		<div class="input-group">
+			<div class="input-row">
+				<label class="input-label" for="billInput">Total Bill</label>
+				<input class="input-field" type="number" id="billInput" min="0" step="0.01" value="" placeholder="Enter amount">
+			</div>
+			<div class="input-row">
+				<label class="input-label" for="peopleInput">People</label>
+				<input class="input-field" type="number" id="peopleInput" min="1" step="1" value="" placeholder="Enter number">
+			</div>
+		</div>
+		<div class="slider-group">
+			<div class="slider-label">Tip Percentage</div>
+			<div class="slider-row">
+				<input type="range" min="0" max="30" value="10" id="tipSlider" class="slider">
+				<span class="slider-value" id="tipValue">10%</span>
+			</div>
+		</div>
+		<div class="result-group">
+			<div class="result-label">Per Person Share</div>
+			<div class="result-value" id="perPerson">--</div>
+		</div>
+	</div>
+	<script>
+		const billInput = document.getElementById('billInput');
+		const peopleInput = document.getElementById('peopleInput');
+		const tipSlider = document.getElementById('tipSlider');
+		const tipValue = document.getElementById('tipValue');
+		const perPerson = document.getElementById('perPerson');
+
+		function calculateShare() {
+			const bill = parseFloat(billInput.value);
+			const people = parseInt(peopleInput.value);
+			const tip = parseInt(tipSlider.value);
+			if (isNaN(bill) || isNaN(people) || people < 1) {
+				perPerson.textContent = '--';
+				return;
+			}
+			const total = bill + (bill * tip / 100);
+			const share = total / people;
+			perPerson.textContent = '₹ ' + share.toFixed(2);
+		}
+
+		billInput.addEventListener('input', calculateShare);
+		peopleInput.addEventListener('input', calculateShare);
+		tipSlider.addEventListener('input', function() {
+			tipValue.textContent = tipSlider.value + '%';
+			calculateShare();
+		});
+
+		// Initial calculation
+		calculateShare();
+	</script>
+</body>
+</html>

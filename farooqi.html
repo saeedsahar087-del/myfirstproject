@@ -1,0 +1,233 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farooqi Avenue | Defining Quality, Delivering Trust</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- GLOBAL STYLES --- */
+        :root {
+            --gold: #d4af37;
+            --dark: #0a0a0a;
+            --light: #fdfbf7;
+            --white: #ffffff;
+            --transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--white); color: var(--dark); overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* --- HEADER --- */
+        .main-header {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo h1 { font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+        .logo span { color: var(--gold); }
+        .tagline { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-top: -5px; }
+
+        .nav-menu ul { display: flex; list-style: none; gap: 20px; }
+        .nav-menu a { text-decoration: none; color: var(--dark); font-size: 13px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-menu a:hover { color: var(--gold); }
+
+        .header-icons { display: flex; gap: 15px; cursor: pointer; }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1500') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content h2 { font-size: clamp(30px, 6vw, 60px); font-weight: 800; margin-bottom: 20px; }
+        .hero-content span { color: var(--gold); }
+        .hero-content p { max-width: 600px; margin: 0 auto 30px; font-weight: 300; line-height: 1.8; }
+        .btn-gold { padding: 15px 40px; background: var(--gold); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; transition: var(--transition); display: inline-block; }
+        .btn-gold:hover { transform: scale(1.1); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3); }
+
+        /* --- THE GATEWAY (Features) --- */
+        .gateway { padding: 80px 0; background: var(--light); text-align: center; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .feature-box { padding: 40px; background: white; border-radius: 15px; transition: var(--transition); border: 1px solid #eee; }
+        .feature-box:hover { transform: translateY(-10px); border-color: var(--gold); }
+        .feature-box i { font-size: 40px; margin-bottom: 20px; display: block; }
+
+        /* --- THE COLLECTION (Dynamic Filter) --- */
+        .collection { padding: 100px 0; text-align: center; }
+        .filter-btns { margin: 40px 0; display: flex; justify-content: center; gap: 10px; }
+        .f-btn { padding: 10px 25px; border: 1px solid #ddd; background: none; cursor: pointer; border-radius: 30px; transition: 0.3s; }
+        .f-btn.active { background: var(--dark); color: white; border-color: var(--dark); }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .p-card { background: white; border-radius: 15px; overflow: hidden; transition: 0.5s; text-align: left; }
+        .p-img { height: 350px; background: #f0f0f0; overflow: hidden; position: relative; }
+        .p-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .p-card:hover img { transform: scale(1.1); }
+        .p-info { padding: 20px; }
+        .p-info h4 { font-size: 18px; margin-bottom: 5px; }
+        .p-info .price { color: var(--gold); font-weight: 800; }
+
+        /* --- THE HERITAGE (Interactive Tiles) --- */
+        .heritage { padding: 100px 0; background: #111; color: white; }
+        .h-grid { display: flex; height: 500px; gap: 15px; max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .h-tile { flex: 1; background: #222; border-radius: 20px; transition: var(--transition); position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 30px; }
+        .h-tile:hover { flex: 2.5; background: var(--gold); }
+        .h-tile h3 { font-size: 24px; position: relative; z-index: 2; }
+        .h-tile p { opacity: 0; transition: 0.5s; position: relative; z-index: 2; margin-top: 10px; }
+        .h-tile:hover p { opacity: 1; }
+
+        /* --- THE CONCIERGE (Footer) --- */
+        .concierge { background: var(--dark); color: white; padding: 80px 20px 20px; border-top: 3px solid var(--gold); }
+        .c-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .c-col h4 { color: var(--gold); margin-bottom: 20px; }
+        .c-col ul { list-style: none; }
+        .c-col ul li { margin-bottom: 10px; opacity: 0.7; }
+        .footer-bottom { text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #222; font-size: 12px; color: #666; }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .h-grid { flex-direction: column; height: auto; }
+            .h-tile { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>FAROOQI <span>AVENUE</span></h1>
+                <p class="tagline">Defining Quality, Delivering Trust</p>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#home">Gateway</a></li>
+                    <li><a href="#collection">Collection</a></li>
+                    <li><a href="#heritage">Heritage</a></li>
+                    <li><a href="#concierge">Concierge</a></li>
+                </ul>
+            </nav>
+            <div class="header-icons">
+                <span>🔍</span> <span>👤</span> <span>🛒</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>The Future of Your <br><span>Favorite Finds.</span></h2>
+            <p>Farooqi Avenue shopping ke naye daur ka aghaz hai. Hum ne jadeed technology aur puranay bharosay ko aik jagah jama kar diya hai.</p>
+            <a href="#collection" class="btn-gold">Catch the Future</a>
+        </div>
+    </section>
+
+    <section class="gateway">
+        <div class="feature-grid">
+            <div class="feature-box"><i>🚚</i><h4>Swift Delivery</h4><p>Tez aur mehfooz pohanch.</p></div>
+            <div class="feature-box"><i>💎</i><h4>Top Quality</h4><p>Sirf behtareen miyaar.</p></div>
+            <div class="feature-box"><i>🔒</i><h4>Secure Pay</h4><p>100% mehfooz transaction.</p></div>
+        </div>
+    </section>
+
+    <section class="collection" id="collection">
+        <h2 style="font-size: 36px;">The <span>Avenue</span> Collection</h2>
+        <div class="filter-btns">
+            <button class="f-btn active" onclick="filter('all')">All</button>
+            <button class="f-btn" onclick="filter('men')">Men</button>
+            <button class="f-btn" onclick="filter('women')">Women</button>
+        </div>
+
+        <div class="product-grid">
+            <div class="p-card item men">
+                <div class="p-img"><img src="https://images.unsplash.com/photo-1505022610485-0249ba5b3675?q=80&w=400"></div>
+                <div class="p-info"><h4>Classic Linen Shirt</h4><p class="price">Rs. 3,500</p></div>
+            </div>
+            <div class="p-card item women">
+                <div class="p-img"><img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=400"></div>
+                <div class="p-info"><h4>Silk Summer Dress</h4><p class="price">Rs. 6,800</p></div>
+            </div>
+            <div class="p-card item men">
+                <div class="p-img"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=400"></div>
+                <div class="p-info"><h4>Modern Blazer</h4><p class="price">Rs. 12,000</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="heritage" id="heritage">
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h2 style="font-size: 36px; font-weight: 300;">The <span>Heritage</span> Tiles</h2>
+        </div>
+        <div class="h-grid">
+            <div class="h-tile">
+                <div><h3>01. The Foundation</h3><p>Truth and quality defined in every thread.</p></div>
+            </div>
+            <div class="h-tile">
+                <div><h3>02. The Craft</h3><p>Handpicked by master artisans of the avenue.</p></div>
+            </div>
+            <div class="h-tile">
+                <div><h3>03. The Vision</h3><p>Bringing elegance to your doorstep globally.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="concierge" id="concierge">
+        <div class="c-grid">
+            <div class="c-col"><h4>Farooqi Avenue</h4><p>Defining Quality,<br>Delivering Trust.</p></div>
+            <div class="c-col"><h4>Navigation</h4><ul><li>Gateway</li><li>Collection</li><li>Trends</li></ul></div>
+            <div class="c-col"><h4>Contact</h4><ul><li>Lahore, Pakistan</li><li>support@farooqi.com</li><li>+92 300 1234567</li></ul></div>
+        </div>
+        <div class="footer-bottom">&copy; 2025 Farooqi Avenue. Created for Excellence.</div>
+    </footer>
+
+    <script>
+        // Filter Logic
+        function filter(category) {
+            const items = document.querySelectorAll('.item');
+            const btns = document.querySelectorAll('.f-btn');
+            
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    if(category === 'all' || item.classList.contains(category)) {
+                        item.style.display = 'block';
+                        setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if(window.scrollY > 50) {
+                header.style.padding = '5px 0';
+                header.style.background = '#fff';
+            } else {
+                header.style.padding = '15px 0';
+            }
+        });
+    </script>
+</body>
+</html>
+    

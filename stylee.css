@@ -1,0 +1,279 @@
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff;
+    margin: 0;
+    padding: 40px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 50px;
+    border-top: 4px solid #ff7a50; /* Orange top border seen in image */
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.expertise-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+}
+
+.expertise-card {
+    flex: 1;
+    min-width: 300px;
+    padding: 40px;
+    box-sizing: border-box;
+}
+
+/* Vertical line between cards */
+.border-left {
+    border-left: 1px solid #eeeeee;
+}
+
+.icon {
+    margin-bottom: 30px;
+}
+
+.icon img {
+    width: 80px; /* Adjust based on your actual icons */
+    opacity: 0.3; /* Matches the grey/faded look in image */
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+.card-text {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.card-link {
+    color: #ff7a50;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-bottom: 2px solid #ff7a50;
+    padding-bottom: 5px;
+    transition: opacity 0.3s;
+}
+
+.card-link:hover {
+    opacity: 0.7;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .expertise-card {
+        flex: 100%;
+        border-left: none;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  --primary-orange: #ff8c52;
+  --white: #ffffff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif; /* Using a clean sans-serif font */
+}
+
+.hero-container {
+  background-color: var(--primary-orange);
+  color: var(--white);
+  padding: 60px 80px 40px 80px;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Profile and Title Layout */
+.hero-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.profile-image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 4px solid var(--white);
+  object-fit: cover;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.hero-text h1 span {
+  font-weight: 700;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  opacity: 0.9;
+}
+
+/* Footer Section */
+.hero-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 60px;
+}
+
+.footer-item label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.footer-item p, .footer-item a {
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--white);
+}
+
+/* Email and Icon Styling */
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+
+
+/* 
+
+/* Importing a clean Sans-Serif font similar to the image */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+//* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar {
+    background-color: #ff8c61; /* The coral/orange background */
+    padding: 20px 0;
+    width: 100%;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between; /* Spreads Logo, Nav, and Button */
+    align-items: center;
+    padding: 0 40px;
+}
+
+/* Logo Styling */
+.logo {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+/* Nav Menu Styling */
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    gap: 35px; /* Spacing between menu items */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.nav-links a:hover {
+    opacity: 0.8;
+}
+
+/* Button Styling */
+.btn-talk {
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 12px 35px;
+    border-radius: 50px; /* Creates the pill shape */
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.btn-talk:hover {
+    background-color: white;
+    color: #ff8c61;
+}
+
+/* Mobile Responsive adjustment */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* Hides menu on small screens */
+    } */
+}
+

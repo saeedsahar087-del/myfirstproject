@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="2task.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+    <style>
+        header {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            padding-left: 80px;
+            padding-right: 20px;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            background-color:black ;
+
+        }
+
+        .menu-list {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .banner-section {
+            background-image: url(background-64249_640.jpg);
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: white;
+
+        }
+
+        .banner-heading {
+            text-align: center;
+            padding: 200px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .first-div {
+            background-color: #c93e19;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-bottom: 60px;
+        }
+
+        .second-div {
+            background-color: #bc3a17;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-bottom: 60px;
+        }
+
+        .third-div {
+            background-color: #b23716;
+            padding-top: 20px;
+            padding-left: 40px;
+            padding-bottom: 60px;
+        }
+
+        .icon {
+            font-size: 50px;
+        }
+
+        .second-section {
+            padding-left: 80px;
+            padding-top: 100px;
+        }
+
+        .content {
+            padding-top: 150px;
+            justify-content: space-between;
+        }
+
+
+        .card2 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .division {
+            display: flex;
+
+        }
+
+        .img {
+            text-align: center;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            padding-top: 40px;
+        }
+
+        /* Individual image wrapper */
+        .image-wrapper {
+            margin: 10px;
+            text-align: center;
+        }
+
+        /* circular image styling */
+        .image-circle {
+            width: 150px;
+            height: 150px;
+            border: 1px solid;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 23px;
+
+        }
+
+        .image-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* caption styling */
+        .image-caption {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Product grid container */
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        /* Individual product card */
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge-sale {
+            background: #e74c3c;
+        }
+
+        .badge-best {
+            background: #f39c12;
+        }
+
+        .badge-new {
+            background: #2ecc71;
+        }
+
+        /* Product info section */
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .product-category {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Action buttons */
+        .product-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            height: 250px;
+            padding: 10px;
+            background-image: url(atm.jpg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .action-btn:hover {
+            background: #ccc;
+        }
+
+        .action-btn i {
+            font-size: 14px;
+        }
+
+        .product {
+            display: flex;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="row">
+        <div class="website-name col ">
+            <h1>LIQUOR STORE</h1>
+        </div>
+        <div class="menu-style col">
+            <ul class="menu-list">
+                <li>HOME</li>
+                <li>ABOUT</li>
+                <li>PRODUCTS</li>
+                <li>BLOG</li>
+                <li>CONTACT</li>
+            </ul>
+        </div>
+    </header>
+    <section class="banner-section">
+        <div class="banner-heading">
+            <h1>Good Drink for Good </h1>
+            <h1>Moments</h1>
+            <button>Shop Now</button>
+            <button>Read More</button>
+        </div>
+        <div class="banner-div d-flex row">
+            <div class="first-div  d-flex col">
+                <div class="icon"><i class="fa fa-user"></i></div>
+                <div>
+                    <h5>Online Support 24/7</h5>
+                    <p> A small river named Duden <br> flows by their place and supplies <br> with the necessary
+                        regelialia.</p>
+                </div>
+
+            </div>
+            <div class="second-div col d-flex">
+                <div class="icon"><i class="fa fa-user"></i></div>
+                <div>
+                    <h5>Money Back Guarantee</h5>
+                    <p> A small river named Duden <br>flows by their place and supplies <br>it with the necessary
+                        regelialia</p>
+                </div>
+
+            </div>
+            <div class="third-div col d-flex">
+                <div class="icon"><i class="fa fa-user"></i></div>
+                <div>
+                    <h5>Free Shipping & Return</h5>
+                    <p>A small river named Duden <br>flows by their place and supplies<br> it with the necessary
+                        regelialia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class=" second-section col">
+                <img src="white-wine-3835585_640.jpg" style=" width: 560px; height: 470px;">
+            </div>
+            <div class="content col">
+                <p>Since 1905</p>
+                <h1>Desire Meets A New Taste</h1>
+                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a
+                    paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+
+                <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would
+                    have been rewritten a thousand times and everything that was left from its origin would be the word
+                    "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
+                <h4>115 Years of Experience In Business</h4>
+            </div>
+        </div>
+    </section>
+    <section class="image-container">
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="tignanello-4546227_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Brandy</div>
+        </div>
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="white-wine-3835585_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Gin</div>
+        </div>
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="wine-2789265_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Rum</div>
+        </div>
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="wine-8346641_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Vodka</div>
+        </div>
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="wine-bottle-3972952_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Whiskey</div>
+        </div>
+        <div class="image-wrapper">
+            <div class="image-circle">
+                <img src="wine-glass-4764611_640.jpg" style="height: 100px; width: 100px; border-radius: 50%;">
+            </div>
+            <div class="image-caption"> Tequila</div>
+        </div>
+    </section>
+    <section class="product">
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-actions">
+                    <button class="action-btn"><i class="fa fa-cart"></i></button>
+                    <button class="action-btn"><i class="fa fa-heart"></i></button>
+                    <button class="action-btn"><i class="fa fa-eye"></i></button>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Bacardi 151</div>
+                    <div class="product-category">Rum</div>
+                    <div class="product-price">$49.00</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+    <section>
+        <p>Our Delightful offerings</p>
+        <h1>Tastefully Yours</h1>
+        <div class="card2">
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>....</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>..</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>..</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>..</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>...</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>...</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>...</p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 18rem;">
+                <img src="atm.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                        card’s content.</p>
+                    <p>...</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </section>
+    <section>
+        <div>
+            <p></p>
+            <h1></h1>
+            carousal
+        </div>
+    </section>
+    <section>
+        <div class="card-division">
+            <div class="division">
+                <div>
+                    <img src="atm.jpg" style="width: 350px; height: 350px;">
+                </div>
+                <div>
+                    <p> 23 April 2020</p>
+                    <h4>The Recipe from a Winemaker’s Restaurent</h4>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                </div>
+            </div>
+            <div class="division">
+                <div>
+                    <img src="atm.jpg" style="width: 350px; height: 350px;">
+                </div>
+                <div>
+                    <p> 23 April 2020</p>
+                    <h4>The Recipe from a Winemaker’s Restaurent</h4>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                </div>
+            </div>
+            <div class="division">
+                <div>
+                    <img src="atm.jpg" style="width: 350px; height: 350px;">
+                </div>
+                <div>
+                    <p> 23 April 2020</p>
+                    <h4>The Recipe from a Winemaker’s Restaurent</h4>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                </div>
+            </div>
+            <div class="division">
+                <div>
+                    <img src="atm.jpg" style="width: 350px; height: 350px;">
+                </div>
+                <div>
+                    <p> 23 April 2020</p>
+                    <h4>The Recipe from a Winemaker’s Restaurent</h4>
+                    <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <section>
+        <div>
+            <h4>Liquor Store</h4>
+            <p>Far far away, behind the word mountains, far from the countries.</p>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+        <div>
+            <h5>My Accounts</h5>
+            <div>
+                <ul>
+                    <li>My Account</li>
+                    <li>register </li>
+                    <li>log in</li>
+                    <li>my order</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h5>information</h5>
+            <div>
+                <ul>
+                    <li>about us</li>
+                    <li> catalog</li>
+                    <li>contact us</li>
+                    <li>term & conditions</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h5> quick line</h5>
+            <div>
+                <ul>
+                    <li> new user</li>
+                    <li>help center</li>
+                    <li>report span </li>
+                    <li>faq's</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <h5>Have a Questions?</h5>
+            <div>
+                <ul>
+                    <li> 203 Fake St. Mountain View, San Francisco, California, USA</li>
+                    <li>+2 392 3929 210</li>
+                    <li>info@yourdomain.com</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

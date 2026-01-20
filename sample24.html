@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODERN | Shop</title>
+    <style>
+        :root {
+            --primary: #111;
+            --accent: #e67e22;
+            --light: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+        body { background-color: var(--white); color: var(--primary); overflow-x: hidden; }
+
+        /* Navigation */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 5%; background: var(--white); border-bottom: 1px solid #eee;
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: -1px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; }
+        .nav-links li { cursor: pointer; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; }
+        .nav-links li:hover { color: var(--accent); }
+
+        /* Page Handling */
+        .page { display: none; min-height: 80vh; animation: fadeIn 0.4s ease; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Carousel Styles */
+        .carousel-container {
+            position: relative; width: 100%; height: 500px; overflow: hidden;
+            background: #000;
+        }
+        .carousel-slide {
+            display: none; height: 100%; width: 100%;
+            background-size: cover; background-position: center;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .carousel-slide.active { display: flex; align-items: center; justify-content: center; }
+        .carousel-content { text-align: center; color: white; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; }
+        .carousel-content h2 { font-size: 3rem; margin-bottom: 10px; }
+        
+        /* Carousel Controls */
+        .prev, .next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.3); color: white; padding: 15px;
+            cursor: pointer; border: none; font-size: 1.5rem;
+        }
+        .next { right: 0; }
+        .prev { left: 0; }
+
+        /* Product Grid */
+        .shop-container { padding: 50px 5%; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .product-card { background: var(--light); padding: 10px; border-radius: 8px; text-align: center; }
+        .product-card img { width: 100%; height: 300px; object-fit: cover; border-radius: 5px; }
+        .product-card h3 { margin: 15px 0; }
+        .buy-btn { background: var(--primary); color: white; padding: 10px 20px; border: none; cursor: pointer; width: 100%; }
+
+        /* Contact Form */
+        .contact-form { max-width: 600px; margin: 50px auto; padding: 0 20px; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; }
+
+        /* Footer */
+        footer { background: var(--primary); color: #888; padding: 60px 5% 20px; margin-top: 50px; }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px;
+        }
+        .footer-col h4 { color: white; margin-bottom: 20px; }
+        .footer-col p { font-size: 0.9rem; line-height: 1.8; }
+        .footer-bottom { border-top: 1px solid #222; margin-top: 40px; padding-top: 20px; text-align: center; font-size: 0.8rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .carousel-container { height: 350px; }
+            .carousel-content h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">MODERN.</div>
+        <ul class="nav-links">
+            <li onclick="showPage('home')">Home</li>
+            <li onclick="showPage('shop')">Shop</li>
+            <li onclick="showPage('about')">About</li>
+            <li onclick="showPage('blog')">Blog</li>
+            <li onclick="showPage('contact')">Contact</li>
+        </ul>
+        <div class="cart-icon">🛒 (0)</div>
+    </nav>
+
+    <div id="home" class="page active-page">
+        <div class="carousel-container">
+            <div class="carousel-slide active" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200')">
+                <div class="carousel-content">
+                    <h2>Summer Collection</h2>
+                    <p>Get up to 50% off on all new arrivals.</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=1200')">
+                <div class="carousel-content">
+                    <h2>Modern Tech</h2>
+                    <p>Experience the latest in wearable gadgets.</p>
+                </div>
+            </div>
+            <div class="carousel-slide" style="background-image: url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200')">
+                <div class="carousel-content">
+                    <h2>Quality Goods</h2>
+                    <p>Crafted with the finest materials.</p>
+                </div>
+            </div>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+
+        <div class="shop-container">
+            <h2 style="text-align: center; margin-bottom: 30px;">Trending Now</h2>
+            <div class="grid" id="product-list">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" alt="Shoes">
+                    <h3>Pro Runners</h3>
+                    <p>$120.00</p>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Headphones">
+                    <h3>Studio Headphones</h3>
+                    <p>$250.00</p>
+                    <button class="buy-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="shop" class="page">
+        <div class="shop-container">
+            <h2>All Products</h2>
+            <p>Browse our complete catalog.</p>
+            </div>
+    </div>
+
+    <div id="about" class="page" style="text-align: center; padding: 100px 5%;">
+        <h2>About Our Brand</h2>
+        <p style="max-width: 700px; margin: 20px auto;">We started in 2023 with one goal: to provide high-quality essentials at a fair price. Our products are sustainably sourced and designed to last.</p>
+    </div>
+
+    <div id="blog" class="page" style="padding: 50px 5%;">
+        <h2>Our Blog</h2>
+        <div style="margin-top:20px; border-left: 4px solid var(--accent); padding-left: 20px;">
+            <h3>How to Style Minimalist Outfits</h3>
+            <p>Published Dec 19, 2025</p>
+        </div>
+    </div>
+
+    <div id="contact" class="page">
+        <div class="contact-form">
+            <h2>Contact Us</h2>
+            <form>
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Email Address">
+                <textarea rows="6" placeholder="How can we help?"></textarea>
+                <button type="button" class="buy-btn">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>MODERN.</h4>
+                <p>Your destination for premium lifestyle goods. We believe in quality, durability, and style.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Support</h4>
+                <p>Returns & Exchange</p>
+                <p>Shipping Info</p>
+                <p>Privacy Policy</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: help@modern.com</p>
+                <p>Phone: +1 (555) 000-1234</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 MODERN E-Commerce Inc. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Carousel Logic
+        let slideIndex = 0;
+        const slides = document.querySelectorAll(".carousel-slide");
+
+        function moveSlide(n) {
+            slides[slideIndex].classList.remove("active");
+            slideIndex = (slideIndex + n + slides.length) % slides.length;
+            slides[slideIndex].classList.add("active");
+        }
+
+        // Automatic Carousel
+        setInterval(() => moveSlide(1), 5000);
+
+        // Page Switcher Logic
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo(0,0);
+        }
+    </script>
+</body>
+</html>

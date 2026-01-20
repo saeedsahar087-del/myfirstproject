@@ -1,0 +1,24 @@
+h2{
+    background-color: aqua;
+}
+button{
+    color: blue;
+    padding: 10px;
+    background-color: rgb(127, 157, 255);
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: none;
+}
+p{
+    text-align: center;
+}
+.text{
+    background-color: aquamarine;
+    text-align: center;
+    padding: 50px;
+    height: 300px;
+    width: 300px;
+    border-radius: 80px;
+}
+
